@@ -1,0 +1,62 @@
+name: iOS tests workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: qaguru
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          clean: true
+
+      - name: Setup ruby
+        run: ruby -v
+        
+      - name: Install Fastlane
+        run: bundle install
+
+      - name: Build app
+        run: bundle exec fastlane ios build_test_app
+
+      - name: Test app
+        run: bundle exec fastlane ios test_app
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: xcresult
+          path: qa_guru_xctest_a3/fastlane/test_output/qa\ guru\ a3.xcresult
+
+      - name: Send telegram message
+        run: echo "Test run ended!"
+      
+      - uses: allure-framework/setup-allurectl@v1
+        with: 
+          allure-endpoint: ${{ secrets.ALLURE_URL }}
+          allure-token: ${{ secrets.ALLURE_TOKEN }}
+          allure-project-id: "3670"
+
+      - name: Download xcresult
+        run: ruby -v
+
+      - name: Convert to allure result
+        run: ruby -v
+
+      - name: Send results to testops
+        run: ruby -v
+
