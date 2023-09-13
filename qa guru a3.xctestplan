@@ -1,0 +1,38 @@
+{
+  "configurations" : [
+    {
+      "id" : "D8826D27-CF9B-4938-891D-7EF56253B114",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "diagnosticCollectionPolicy" : "Never",
+    "language" : "en",
+    "locationScenario" : {
+      "identifier" : "Sydney, Australia",
+      "referenceType" : "built-in"
+    },
+    "mainThreadCheckerEnabled" : false,
+    "region" : "TH",
+    "testExecutionOrdering" : "random"
+  },
+  "testTargets" : [
+    {
+      "selectedTests" : [
+        "qa_guru_a3UITests\/testExample()",
+        "qa_guru_a3UITestsLaunchTests\/testActivites()",
+        "qa_guru_a3UITestsLaunchTests\/testLaunch()"
+      ],
+      "target" : {
+        "containerPath" : "container:qa guru a3.xcodeproj",
+        "identifier" : "F589CD692AA6584000415645",
+        "name" : "qa guru a3UITests"
+      }
+    }
+  ],
+  "version" : 1
+}
