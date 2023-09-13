@@ -22,9 +22,12 @@
   },
   "testTargets" : [
     {
+      "parallelizable" : true,
       "selectedTests" : [
-        "qa_guru_a3UITests\/testExample()",
         "qa_guru_a3UITestsLaunchTests\/testActivites()",
+        "qa_guru_a3UITestsLaunchTests\/testApp()",
+        "qa_guru_a3UITestsLaunchTests\/testExampleTestops()",
+        "qa_guru_a3UITestsLaunchTests\/testFail()",
         "qa_guru_a3UITestsLaunchTests\/testLaunch()"
       ],
       "target" : {

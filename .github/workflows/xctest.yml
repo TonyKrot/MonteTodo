@@ -28,7 +28,9 @@ jobs:
         run: ruby -v
 
       - name: Remove old derived data
-        run: rm -rf ./DerivedDataTest
+        run: |
+          rm -rf ./DerivedData**/**
+          rm -rf ./Build
         
       - name: Install Fastlane
         run: bundle install
@@ -73,4 +75,3 @@ jobs:
         with:
           name: allure
           path: allure-results
-          
