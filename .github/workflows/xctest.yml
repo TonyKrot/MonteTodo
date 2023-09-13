@@ -26,6 +26,9 @@ jobs:
 
       - name: Setup ruby
         run: ruby -v
+
+      - name: Remove old derived data
+        run: rm -rf ./DerivedDataTest
         
       - name: Install Fastlane
         run: bundle install
@@ -36,27 +39,38 @@ jobs:
       - name: Test app
         run: bundle exec fastlane ios test_app
 
-      - name: Upload test results
+      - name: Upload xcode results
+        if: ${{ always() }}
         uses: actions/upload-artifact@v3
         with:
           name: xcresult
           path: qa_guru_xctest_a3/fastlane/test_output/qa\ guru\ a3.xcresult
 
       - name: Send telegram message
+        if: ${{ always() }}
         run: echo "Test run ended!"
       
       - uses: allure-framework/setup-allurectl@v1
+        if: ${{ always() }}
         with: 
           allure-endpoint: ${{ secrets.ALLURE_URL }}
           allure-token: ${{ secrets.ALLURE_TOKEN }}
           allure-project-id: "3670"
 
       - name: Download xcresult
-        run: ruby -v
+        if: ${{ always() }}
+        run: |
+          curl -OL https://github.com/eroshenkoam/xcresults/releases/latest/download/xcresults
+          chmod +x xcresults 
 
       - name: Convert to allure result
-        run: ruby -v
+        if: ${{ always() }}
+        run: ./xcresults export ./fastlane/test_output/qa\ guru\ a3.xcresult allure-results
 
-      - name: Send results to testops
-        run: ruby -v
-
+      - name: Upload allure results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure
+          path: allure-results
+          
